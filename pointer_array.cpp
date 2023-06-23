@@ -2,35 +2,38 @@
 //
 
 #include <iostream>
-#include <ctime>
 using namespace std;
 
-int main()
-{
-    srand(time(0));
-    int size;
-    cout << "Enter size of array: ";
-    cin >> size;
-    int* arr = new int[size];
-    for (size_t i = 0; i < size; i++)
-    {
-        *(arr + i) = rand() % 10;
-        cout << *(arr + i) << " ";
-    }
+void copy_arr_rev(int* source, int* dest, int size) {
+    int* src_ptr = source + size - 1;
+    int* dest_ptr = dest;
 
-    cout << endl;
-    cout << *(arr + (size - 1)) << endl;
-    delete[] arr;
-    return 0;
+    while (size > 0) {
+        *dest_ptr = *src_ptr;
+        src_ptr--;
+        dest_ptr++;
+        size--;
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main() {
+    const int SIZE = 5;
+    int source[SIZE] = { 1, 2, 3, 4, 5 };
+    int dest[SIZE];
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    cout << "Source Array: ";
+    for (int i = 0; i < SIZE; i++) {
+        cout << source[i] << " ";
+    }
+    cout << endl;
+
+    copy_arr_rev(source, dest, SIZE);
+
+    cout << "Reversed Destination Array: ";
+    for (int i = 0; i < SIZE; i++) {
+        cout << dest[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
